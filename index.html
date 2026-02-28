@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UnPinguino - Mi Web</title>
+    <meta name="description" content="Una web moderna y dinámica creada con HTML, CSS y JS.">
+    <!-- Google Fonts: Cinzel and Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <a href="index.html" class="header-logo">
+                <img src="assets/images/LogoBlanco.png" alt="UnPinguino Logo">
+            </a>
+
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="#" class="nav-link">INICIO</a></li>
+                    <li><a href="#" class="nav-link">PRIMARIA</a></li>
+                    <li><a href="#" class="nav-link">SECUNDARIA Y BACHILLERATO</a></li>
+                    <li><a href="#" class="nav-link">COMEDIA</a></li>
+                    <li><a href="#" class="nav-link">FAMILIAR</a></li>
+                    <li><a href="#" class="nav-link">CALENDARIO</a></li>
+                    <li><a href="#" class="nav-link">QUIENES SOMOS</a></li>
+                    <li><a href="#" class="nav-link">CONTACTO</a></li>
+                </ul>
+
+                <div class="mobile-nav-footer">
+                    <div class="mobile-contact">
+                        <p>Contacto:</p>
+                        <div class="mobile-phones">
+                            <a href="tel:+34654695086">654 69 50 86</a> /
+                            <a href="tel:+34660286190">660 28 61 90</a>
+                        </div>
+                        <a href="mailto:hola@unpinguinoproducciones.es"
+                            class="mobile-email">hola@unpinguinoproducciones.es</a>
+                    </div>
+                    <div class="mobile-socials">
+                        <a href="https://www.instagram.com/unpinguinoproducciones/" target="_blank"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/unpingu/" target="_blank"><i
+                                class="fa-brands fa-facebook"></i></a>
+                        <a href="https://www.youtube.com/@unpinguinoproducciones8378" target="_blank"><i
+                                class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+            </nav>
+
+            <button class="burger-menu" aria-label="Abrir menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <section id="hero" class="hero-section">
+        <video autoplay muted loop playsinline id="hero-video" class="hero-video">
+            <source src="assets/videos/VideoHero.mov">
+            Tu navegador no soporta el formato de vídeo.
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div id="intro-sequence" class="intro-sequence">
+                <h2 class="sequence-text" id="text-1">Todo Listo</h2>
+                <h2 class="sequence-text" id="text-2">La función va a comenzar</h2>
+                <div id="hero-logo-container" class="hero-logo-container hidden">
+                    <img src="assets/images/LogoHero.png" alt="UnPinguino Hero Logo" id="hero-logo" class="hero-logo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <section class="plays-nav-section">
+            <div class="container reveal-on-scroll">
+                <h1 class="section-title">
+                    Disfruta de nuestras obras de <br>
+                    <span class="stagger" style="--i:1">Teatro</span>
+                    <span class="stagger" style="--i:2">Clásico</span>
+                    <span class="stagger" style="--i:3">De Comedia</span>
+                </h1>
+                <div class="btns-container">
+                    <a href="#" class="btn btn-outline">COMEDIA FAMILIAR</a>
+                    <a href="#" class="btn btn-outline">BACHILLERATO Y SECUNDARIA</a>
+                    <a href="#" class="btn btn-outline">PRIMARIA</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="booking-section">
+            <div class="container reveal-on-scroll">
+                <p class="section-subtitle">Risas y Emoción</p>
+                <h2 class="section-title">¡Reserva tu función!</h2>
+                <p class="helper-text">(Consulta nuestra disponibilidad en el calendario)</p>
+
+                <div class="calendar-container">
+                    <div class="calendar-loading" id="loading-cal-actual">
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+                        <p>Cargando calendario...</p>
+                    </div>
+                    <div id="cal-actual" class="calendar-item"></div>
+                </div>
+
+                <div class="btns-container">
+                    <a href="#" class="btn btn-primary">CALENDARIO COMPLETO</a>
+                </div>
+            </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const loadingEl = document.getElementById('loading-cal-actual');
+                    const calId = 'cal-actual';
+                    const hoy = new Date().toISOString().split('T')[0];
+
+                    const waitForRegister = setInterval(() => {
+                        if (window.registerCalendar) {
+                            clearInterval(waitForRegister);
+                            window.registerCalendar(calId, hoy);
+
+                            const observer = new MutationObserver(() => {
+                                const calEl = document.getElementById(calId);
+                                if (calEl && calEl.querySelector('.fc-daygrid-day')) {
+                                    loadingEl.style.display = 'none';
+                                    observer.disconnect();
+                                }
+                            });
+                            observer.observe(document.getElementById(calId), { childList: true, subtree: true });
+                        }
+                    }, 50);
+                });
+            </script>
+        </section>
+
+        <section class="posters-section">
+            <div class="container reveal-on-scroll">
+                <h2 class="section-title">Nuestras Producciones</h2>
+            </div>
+            <div class="posters-grid reveal-on-scroll">
+                <div class="poster-item">
+                    <img src="assets/images/carteles/CartelCid.webp" alt="Cartel El Cid">
+                </div>
+                <div class="poster-item">
+                    <img src="assets/images/carteles/CartelLazarillo.webp" alt="Cartel Lazarillo de Tormes">
+                </div>
+                <div class="poster-item">
+                    <img src="assets/images/carteles/CartelLisistrata.webp" alt="Cartel Lisístrata">
+                </div>
+                <div class="poster-item">
+                    <img src="assets/images/carteles/CartelLorca.webp" alt="Cartel Federico García Lorca">
+                </div>
+                <div class="poster-item">
+                    <img src="assets/images/carteles/CartelMeli.webp" alt="Cartel Meli-Melo">
+                </div>
+                <div class="poster-item">
+                    <img src="assets/images/carteles/CartelQuijote.webp" alt="Cartel Don Quijote">
+                </div>
+            </div>
+            <section class="history-section">
+                <div class="container reveal-on-scroll">
+                    <p class="section-subtitle">Más de 500.000 espectadores</p>
+                    <h2 class="section-title">15 años representando clásicos</h2>
+                    <div class="history-content">
+                        <p>Durante más de quince años hemos compartido risas, emociones y clásicos inolvidables con más
+                            de medio millón de espectadores. Cada representación es una invitación a redescubrir el
+                            teatro de siempre desde una mirada fresca y cercana.</p>
+                        <p>Nuestro compromiso sigue siendo el mismo: acercar la comedia clásica al público actual,
+                            manteniendo viva la tradición pero con la energía y la pasión que nos caracteriza en cada
+                            escenario.</p>
+                    </div>
+                </div>
+                <div class="van-track reveal-on-scroll">
+                    <img src="assets/images/Pinguneta.png" alt="Pinguneta" class="pinguneta-van">
+                </div>
+            </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <!-- Columna 1: Logo y Redes -->
+            <div class="footer-column footer-brand">
+                <div class="footer-logo">
+                    <img src="assets/images/LogoBlanco.png" alt="UnPinguino Producciones Logo">
+                </div>
+                <div class="footer-socials">
+                    <a href="https://www.instagram.com/unpinguinoproducciones/" target="_blank"
+                        rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/unpingu/?locale=es_ES" target="_blank" rel="noopener noreferrer"
+                        aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.youtube.com/@unpinguinoproducciones8378" target="_blank"
+                        rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <!-- Columna 2: Contacto -->
+            <div class="footer-column">
+                <h3>Contacto</h3>
+                <p>Llamadas o WhatsApp:</p>
+                <div class="footer-phones">
+                    <a href="tel:+34654695086" class="footer-link-accent">654 69 50 86</a> /
+                    <a href="tel:+34660286190" class="footer-link-accent">660 28 61 90</a>
+                </div>
+
+                <p class="mt-20">Email:</p>
+                <a href="mailto:hola@unpinguinoproducciones.es"
+                    class="footer-link-accent">hola@unpinguinoproducciones.es</a>
+            </div>
+
+            <!-- Columna 3: Información -->
+            <div class="footer-column">
+                <h3>Información</h3>
+                <ul>
+                    <li><a href="#">Política de Privacidad</a></li>
+                    <li><a href="#">Política de Cookies</a></li>
+                    <li><a href="#">Aviso Legal</a></li>
+                    <li><a href="#">Preguntas Frecuentes</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 UnPinguinoProducciones. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!-- Contenedor del calendario -->
+<div style="text-align:center;">
+  <div class="calendar-loading" id="loading-cal-actual" 
+       style="display:block; margin: 0 auto 10px auto; font-weight:bold;">
+    Cargando calendario...
+  </div>
+  <div id="cal-actual" class="calendar-item" style="margin: 0 auto;"></div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const loadingEl = document.getElementById('loading-cal-actual');
+  const calId = 'cal-actual';
+  const hoy = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+
+  // Esperar a que registerCalendar exista
+  const waitForRegister = setInterval(() => {
+    if (window.registerCalendar) {
+      clearInterval(waitForRegister);
+
+      // Registrar calendario del mes actual
+      window.registerCalendar(calId, hoy);
+
+      // Observador para ocultar el mensaje cuando aparezcan los eventos
+      const observer = new MutationObserver(() => {
+        const calEl = document.getElementById(calId);
+        if (calEl && calEl.querySelector('.fc-daygrid-day')) {
+          loadingEl.style.display = 'none';
+          observer.disconnect();
+        }
+      });
+      observer.observe(document.getElementById(calId), { childList: true, subtree: true });
+    }
+  }, 50);
+});
+</script>
