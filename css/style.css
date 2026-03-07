@@ -500,8 +500,7 @@ body {
     }
 
     .mobile-nav-footer {
-        margin-top: 20px;
-        /* Removed auto to avoid pushing off-screen on short devices */
+        margin-top: auto;
         padding-top: 25px;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
         width: 100%;

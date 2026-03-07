@@ -1,36 +1,454 @@
-<!-- Contenedor del calendario -->
-<div style="text-align:center;">
-  <div class="calendar-loading" id="loading-cal-actual" 
-       style="display:block; margin: 0 auto 10px auto; font-weight:bold;">
-    Cargando calendario...
-  </div>
-  <div id="cal-actual" class="calendar-item" style="margin: 0 auto;"></div>
-</div>
+<style>
+.calendar-item {
+    background: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.fc-toolbar-title {
+    text-transform: capitalize;
+}
+
+.calendar-item .fc-header-toolbar {
+    margin-bottom: 0.5em;
+}
+
+/*ocultar 0 */
+.fc-event-time {
+    display: none !important;
+}
+
+/* Altura fija para uniformidad */
+.calendar-item .fc-daygrid-day {
+    height: 40px !important;
+}
+
+/* Eventos con texto más pequeño */
+.calendar-item .fc-event {
+    font-size: 10px !important;
+    padding: 1px 2px !important;
+    line-height: 1.1 !important;
+    position: relative;
+    z-index: 1;
+}
+
+/* Evento en hover */
+.fc-event:hover {
+    z-index: 1000 !important;
+}
+
+.fc-event-title {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    margin-left: 0 !important;
+}
+
+/* Tooltip */
+.fc-event:hover .fc-event-title {
+    overflow: visible !important;
+    position: absolute;
+    background: #333;
+    color: white !important;
+    padding: 4px 8px;
+    border-radius: 4px;
+    white-space: normal !important;
+    z-index: 9999 !important;
+    left: 0;
+    top: -30px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    min-width: 120px;
+    max-width: 200px;
+    font-size: 14px !important;
+}
+
+/* Flecha */
+.fc-event:hover .fc-event-title::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 10px;
+    border: 5px solid transparent;
+    border-top-color: #333;
+}
+
+.fc-daygrid-day:hover {
+    z-index: 100 !important;
+}
+
+.calendar-item .fc-prev-button,
+.calendar-item .fc-next-button,
+.calendar-item .fc-today-button {
+    display: none;
+}
+
+.calendar-loading {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
+/* Sin puntos */
+.fc-event-dot,
+.fc-list-event-dot,
+.fc-daygrid-event-dot {
+    display: none !important;
+}
+
+.fc-daygrid-dot-event {
+    padding-left: 2px !important;
+}
+</style>
+
+<div class="calendar-loading" id="loading">Cargando calendarios...</div>
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+<script src="https://unpkg.com/ical.js@1.5.0/build/ical.min.js"></script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const loadingEl = document.getElementById('loading-cal-actual');
-  const calId = 'cal-actual';
-  const hoy = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+// URL a tu PHP en la raíz (sin timestamp)
+const ICS_URL = '/cache_calendar.php';
 
-  // Esperar a que registerCalendar exista
-  const waitForRegister = setInterval(() => {
-    if (window.registerCalendar) {
-      clearInterval(waitForRegister);
+window.calendarEvents = null;
+window.calendarsToLoad = [];
+window._calendarLoadPromise = null;
 
-      // Registrar calendario del mes actual
-      window.registerCalendar(calId, hoy);
+// ---- CARGA DE ICS DESDE TU SERVIDOR ----
+function loadIcsFromServer() {
+    if (window._calendarLoadPromise) return window._calendarLoadPromise;
 
-      // Observador para ocultar el mensaje cuando aparezcan los eventos
-      const observer = new MutationObserver(() => {
-        const calEl = document.getElementById(calId);
-        if (calEl && calEl.querySelector('.fc-daygrid-day')) {
-          loadingEl.style.display = 'none';
-          observer.disconnect();
+    const loadingEl = document.getElementById('loading');
+
+    window._calendarLoadPromise = fetch(ICS_URL)
+        .then(res => {
+            if (!res.ok) throw new Error("Error " + res.status);
+            return res.text();
+        })
+        .then(data => {
+            const jcalData = ICAL.parse(data);
+            const comp = new ICAL.Component(jcalData);
+
+            const events = [];
+            comp.getAllSubcomponents('vevent').forEach(function(v) {
+                const ev = new ICAL.Event(v);
+
+                const fcEvent = {
+                    title: ev.summary || "Sin título",
+                    start: ev.startDate.toJSDate(),
+                    color: "#fc8930"
+                };
+
+                if (ev.endDate) fcEvent.end = ev.endDate.toJSDate();
+                if (ev.startDate.isDate) fcEvent.allDay = true;
+
+                events.push(fcEvent);
+            });
+
+            window.calendarEvents = events;
+            loadingEl.style.display = "none";
+
+            return events;
+        })
+        .catch(err => {
+            console.error("Error cargando ICS:", err);
+            loadingEl.innerHTML = "Error al cargar los calendarios.";
+            throw err;
+        });
+
+    return window._calendarLoadPromise;
+}
+
+// ---- CREAR CALENDARIO ----
+window.createSingleCalendar = function(elementId, date) {
+    const el = document.getElementById(elementId);
+    if (!el) return;
+
+    const events = window.calendarEvents || [];
+
+    const calendar = new FullCalendar.Calendar(el, {
+        initialView: "dayGridMonth",
+        initialDate: date,
+        locale: "es",
+        firstDay: 1,
+        height: "auto",
+        headerToolbar: { left: "", center: "title", right: "" },
+        events: events,
+        eventDidMount(info) {
+            const titleEl = info.el.querySelector('.fc-event-title');
+            if (!titleEl) return;
+
+            // Quitar un 0 inicial si aparece
+            if (titleEl.textContent.charAt(0) === '0') {
+                titleEl.textContent = titleEl.textContent.substring(1);
+            }
         }
-      });
-      observer.observe(document.getElementById(calId), { childList: true, subtree: true });
-    }
-  }, 50);
-});
+    });
+
+    calendar.render();
+};
+
+// ---- REGISTRAR CALENDARIO ----
+window.registerCalendar = function(elementId, date) {
+    window.calendarsToLoad.push({ id: elementId, date: date });
+
+    loadIcsFromServer()
+        .then(() => {
+            window.calendarsToLoad.forEach(c => {
+                setTimeout(() => {
+                    window.createSingleCalendar(c.id, c.date);
+                }, 50);
+            });
+            window.calendarsToLoad = [];
+        });
+};
+</script>
+
+
+<div id="cal-octubre" class="calendar-item"></div>
+<script>
+window.registerCalendar('cal-octubre', '2025-10-01');
+</script>
+
+
+<style>
+/* Contenedor del menú lateral */
+#menu-lateral {
+  position: fixed;
+  top: 0;
+  left: -300px; /* oculto inicialmente */
+  width: 300px;
+  height: 100%;
+  background: #111111; /* color del menú */
+  box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+  transition: left 0.3s ease;
+  z-index: 9999;
+  padding: 20px;
+}
+
+/* Cuando se activa, entra en pantalla */
+#menu-lateral.activo {
+  left: 0;
+}
+
+/* Fondo oscuro detrás */
+#menu-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 9998;
+}
+
+#menu-overlay.activo {
+  display: block;
+}
+</style>
+
+<div id="menu-lateral">
+  <h3 style="color:white;">Menú</h3>
+  <ul style="list-style:none; padding:0; margin:0;">
+    <li><a href="#" style="color:white; text-decoration:none;">Inicio</a></li>
+    <li><a href="#" style="color:white; text-decoration:none;">Servicios</a></li>
+    <li><a href="#" style="color:white; text-decoration:none;">Contacto</a></li>
+  </ul>
+</div>
+<div id="menu-overlay"></div>
+
+<style>
+.calendar-item {
+    background: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.fc-toolbar-title {
+    text-transform: capitalize;
+}
+
+.calendar-item .fc-header-toolbar {
+    margin-bottom: 0.5em;
+}
+
+/*ocultar 0 */
+.fc-event-time {
+    display: none !important;
+}
+
+/* Altura fija para uniformidad */
+.calendar-item .fc-daygrid-day {
+    height: 40px !important;
+}
+
+/* Eventos con texto más pequeño */
+.calendar-item .fc-event {
+    font-size: 10px !important;
+    padding: 1px 2px !important;
+    line-height: 1.1 !important;
+    position: relative;
+    z-index: 1;
+}
+
+/* Evento en hover */
+.fc-event:hover {
+    z-index: 1000 !important;
+}
+
+.fc-event-title {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    margin-left: 0 !important;
+}
+
+/* Tooltip */
+.fc-event:hover .fc-event-title {
+    overflow: visible !important;
+    position: absolute;
+    background: #333;
+    color: white !important;
+    padding: 4px 8px;
+    border-radius: 4px;
+    white-space: normal !important;
+    z-index: 9999 !important;
+    left: 0;
+    top: -30px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    min-width: 120px;
+    max-width: 200px;
+    font-size: 14px !important;
+}
+
+/* Flecha */
+.fc-event:hover .fc-event-title::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 10px;
+    border: 5px solid transparent;
+    border-top-color: #333;
+}
+
+.fc-daygrid-day:hover {
+    z-index: 100 !important;
+}
+
+.calendar-item .fc-prev-button,
+.calendar-item .fc-next-button,
+.calendar-item .fc-today-button {
+    display: none;
+}
+
+/* Sin puntos */
+.fc-event-dot,
+.fc-list-event-dot,
+.fc-daygrid-event-dot {
+    display: none !important;
+}
+
+.fc-daygrid-dot-event {
+    padding-left: 2px !important;
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+<script src="https://unpkg.com/ical.js@1.5.0/build/ical.min.js"></script>
+
+<script>
+// URL a tu PHP en la raíz (sin timestamp)
+const ICS_URL = '/cache_calendar.php';
+
+window.calendarEvents = null;
+window.calendarsToLoad = [];
+window._calendarLoadPromise = null;
+
+// ---- CARGA DE ICS DESDE TU SERVIDOR ----
+function loadIcsFromServer() {
+    if (window._calendarLoadPromise) return window._calendarLoadPromise;
+
+    window._calendarLoadPromise = fetch(ICS_URL)
+        .then(res => {
+            if (!res.ok) throw new Error("Error " + res.status);
+            return res.text();
+        })
+        .then(data => {
+            const jcalData = ICAL.parse(data);
+            const comp = new ICAL.Component(jcalData);
+
+            const events = [];
+            comp.getAllSubcomponents('vevent').forEach(function(v) {
+                const ev = new ICAL.Event(v);
+
+                const fcEvent = {
+                    title: ev.summary || "Sin título",
+                    start: ev.startDate.toJSDate(),
+                    color: "#fc8930"
+                };
+
+                if (ev.endDate) fcEvent.end = ev.endDate.toJSDate();
+                if (ev.startDate.isDate) fcEvent.allDay = true;
+
+                events.push(fcEvent);
+            });
+
+            window.calendarEvents = events;
+            return events;
+        })
+        .catch(err => {
+            console.error("Error cargando ICS:", err);
+            throw err;
+        });
+
+    return window._calendarLoadPromise;
+}
+
+// ---- CREAR CALENDARIO ----
+window.createSingleCalendar = function(elementId, date) {
+    const el = document.getElementById(elementId);
+    if (!el) return;
+
+    const events = window.calendarEvents || [];
+
+    const calendar = new FullCalendar.Calendar(el, {
+        initialView: "dayGridMonth",
+        initialDate: date,
+        locale: "es",
+        firstDay: 1,
+        height: "auto",
+        headerToolbar: { left: "", center: "title", right: "" },
+        events: events,
+        eventDidMount(info) {
+            const titleEl = info.el.querySelector('.fc-event-title');
+            if (!titleEl) return;
+
+            // Quitar un 0 inicial si aparece
+            if (titleEl.textContent.charAt(0) === '0') {
+                titleEl.textContent = titleEl.textContent.substring(1);
+            }
+        }
+    });
+
+    calendar.render();
+};
+
+// ---- REGISTRAR CALENDARIO ----
+window.registerCalendar = function(elementId, date) {
+    window.calendarsToLoad.push({ id: elementId, date: date });
+
+    loadIcsFromServer()
+        .then(() => {
+            window.calendarsToLoad.forEach(c => {
+                setTimeout(() => {
+                    window.createSingleCalendar(c.id, c.date);
+                }, 50);
+            });
+            window.calendarsToLoad = [];
+        });
+};
 </script>

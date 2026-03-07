@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario 2026 - UnPinguino</title>
+    <meta name="description" content="Consulta la disponibilidad de Un Pingüino Producciones para todo el año 2026.">
+    <!-- Google Fonts: Cinzel and Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/calendar.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .year-title {
+            text-align: center;
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin: 40px 0;
+            text-shadow: 0 0 20px rgba(253, 136, 49, 0.3);
+        }
+
+        .calendars-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            /* 2 per row as requested */
+            gap: 40px;
+            padding-bottom: 40px;
+        }
+
+        .mt-50 {
+            margin-top: 50px !important;
+        }
+
+        .btn-center-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .calendars-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body class="calendar-page-layout">
+    <header class="main-header scrolled">
+        <div class="header-container">
+            <a href="index.html" class="header-logo">
+                <img src="assets/images/LogoBlanco.png" alt="UnPinguino Logo">
+            </a>
+
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link">INICIO</a></li>
+                    <li><a href="#" class="nav-link">PRIMARIA</a></li>
+                    <li><a href="#" class="nav-link">SECUNDARIA Y BACHILLERATO</a></li>
+                    <li><a href="#" class="nav-link">COMEDIA</a></li>
+                    <li><a href="#" class="nav-link">FAMILIAR</a></li>
+                    <li><a href="calendario.html" class="nav-link active">CALENDARIO</a></li>
+                    <li><a href="quienes-somos.html" class="nav-link">QUIENES SOMOS</a></li>
+                    <li><a href="contacto.html" class="nav-link">CONTACTO</a></li>
+                </ul>
+
+                <div class="mobile-nav-footer">
+                    <div class="mobile-contact">
+                        <p>Contacto:</p>
+                        <div class="mobile-phones">
+                            <a href="tel:+34654695086">654 69 50 86</a> /
+                            <a href="tel:+34660286190">660 28 61 90</a>
+                        </div>
+                        <a href="mailto:hola@unpinguinoproducciones.es"
+                            class="mobile-email">hola@unpinguinoproducciones.es</a>
+                    </div>
+                </div>
+            </nav>
+
+            <button class="burger-menu" aria-label="Abrir menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main class="calendar-page-content">
+        <section class="calendar-hero">
+            <div class="container reveal-on-scroll active">
+                <h1 class="section-title">Disponibilidad 2026</h1>
+                <p class="section-subtitle">Planifica tu evento con antelación consultando nuestras fechas disponibles.
+                </p>
+            </div>
+        </section>
+
+        <section class="calendars-grid-section">
+            <div class="container">
+                <h2 class="year-title">2026</h2>
+                <div class="calendars-grid">
+                    <!-- 12 Months for 2026 -->
+                    <div class="calendar-wrapper">
+                        <div id="cal-enero" class="calendar-item"></div>
+                    </div>
+                    <div class="calendar-wrapper">
+                        <div id="cal-febrero" class="calendar-item"></div>
+                    </div>
+                    <div class="calendar-wrapper">
+                        <div id="cal-marzo" class="calendar-item"></div>
+                    </div>
+                    <div class="calendar-wrapper">
+                        <div id="cal-abril" class="calendar-item"></div>
+                    </div>
+                    <div class="calendar-wrapper">
+                        <div id="cal-mayo" class="calendar-item"></div>
+                    </div>
+                    <div class="calendar-wrapper">
+                        <div id="cal-junio" class="calendar-item"></div>
+                    </div>
+                    <div class="calendar-wrapper">
+                        <div id="cal-julio" class="calendar-item"></div>
+                    </div>
+                    <div class="calendar-wrapper">
+                        <div id="cal-agosto" class="calendar-item"></div>
+                    </div>
+                    <div class="calendar-wrapper">
+                        <div id="cal-septiembre" class="calendar-item"></div>
+                    </div>
+                    <div class="calendar-wrapper">
+                        <div id="cal-octubre" class="calendar-item"></div>
+                    </div>
+                    <div class="calendar-wrapper">
+                        <div id="cal-noviembre" class="calendar-item"></div>
+                    </div>
+                    <div class="calendar-wrapper">
+                        <div id="cal-diciembre" class="calendar-item"></div>
+                    </div>
+                </div>
+
+                <div class="calendar-info-box glass-morphism mt-50">
+                    <h3>¿Necesitas reservar una función?</h3>
+                    <p>Si tienes alguna consulta sobre fechas específicas o quieres contratar un espectáculo, nuestro
+                        equipo te atenderá encantado.</p>
+                    <div class="btn-center-wrapper">
+                        <a href="contacto.html" class="btn btn-primary">IR A CONTACTO</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-column footer-brand">
+                <div class="footer-logo">
+                    <img src="assets/images/LogoBlanco.png" alt="UnPinguino Logo">
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Contacto</h3>
+                <div class="footer-phones">
+                    <a href="tel:+34654695086" class="footer-link-accent">654 69 50 86</a> /
+                    <a href="tel:+34660286190" class="footer-link-accent">660 28 61 90</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 UnPinguinoProducciones. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts for Calendar -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+    <script src="https://unpkg.com/ical.js@1.5.0/build/ical.min.js"></script>
+    <script src="js/calendar-engine.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const months = [
+                { id: 'enero', date: '2026-01-01' },
+                { id: 'febrero', date: '2026-02-01' },
+                { id: 'marzo', date: '2026-03-01' },
+                { id: 'abril', date: '2026-04-01' },
+                { id: 'mayo', date: '2026-05-01' },
+                { id: 'junio', date: '2026-06-01' },
+                { id: 'julio', date: '2026-07-01' },
+                { id: 'agosto', date: '2026-08-01' },
+                { id: 'septiembre', date: '2026-09-01' },
+                { id: 'octubre', date: '2026-10-01' },
+                { id: 'noviembre', date: '2026-11-01' },
+                { id: 'diciembre', date: '2026-12-01' }
+            ];
+
+            months.forEach(m => {
+                window.registerCalendar('cal-' + m.id, m.date);
+            });
+        });
+    </script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

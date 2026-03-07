@@ -13,6 +13,7 @@
         href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/calendar.css">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -31,9 +32,9 @@
                     <li><a href="#" class="nav-link">SECUNDARIA Y BACHILLERATO</a></li>
                     <li><a href="#" class="nav-link">COMEDIA</a></li>
                     <li><a href="#" class="nav-link">FAMILIAR</a></li>
-                    <li><a href="#" class="nav-link">CALENDARIO</a></li>
-                    <li><a href="#" class="nav-link">QUIENES SOMOS</a></li>
-                    <li><a href="#" class="nav-link">CONTACTO</a></li>
+                    <li><a href="calendario.html" class="nav-link">CALENDARIO</a></li>
+                    <li><a href="quienes-somos.html" class="nav-link">QUIENES SOMOS</a></li>
+                    <li><a href="contacto.html" class="nav-link">CONTACTO</a></li>
                 </ul>
 
                 <div class="mobile-nav-footer">
@@ -113,34 +114,10 @@
                     <div id="cal-actual" class="calendar-item"></div>
                 </div>
 
-                <div class="btns-container">
-                    <a href="#" class="btn btn-primary">CALENDARIO COMPLETO</a>
+                <div class="btns-container mt-40">
+                    <a href="calendario.html" class="btn btn-primary">CALENDARIO COMPLETO</a>
                 </div>
             </div>
-
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    const loadingEl = document.getElementById('loading-cal-actual');
-                    const calId = 'cal-actual';
-                    const hoy = new Date().toISOString().split('T')[0];
-
-                    const waitForRegister = setInterval(() => {
-                        if (window.registerCalendar) {
-                            clearInterval(waitForRegister);
-                            window.registerCalendar(calId, hoy);
-
-                            const observer = new MutationObserver(() => {
-                                const calEl = document.getElementById(calId);
-                                if (calEl && calEl.querySelector('.fc-daygrid-day')) {
-                                    loadingEl.style.display = 'none';
-                                    observer.disconnect();
-                                }
-                            });
-                            observer.observe(document.getElementById(calId), { childList: true, subtree: true });
-                        }
-                    }, 50);
-                });
-            </script>
         </section>
 
         <section class="posters-section">
@@ -233,6 +210,18 @@
             <p>&copy; 2025 UnPinguinoProducciones. Todos los derechos reservados.</p>
         </div>
     </footer>
+
+    <!-- Scripts for Calendar -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+    <script src="https://unpkg.com/ical.js@1.5.0/build/ical.min.js"></script>
+    <script src="js/calendar-engine.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const hoy = new Date().toISOString().split('T')[0];
+            window.registerCalendar('cal-actual', hoy);
+        });
+    </script>
 
     <script src="js/script.js"></script>
 </body>

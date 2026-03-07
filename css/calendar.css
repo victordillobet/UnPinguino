@@ -1,0 +1,142 @@
+/* --- Calendar Styles --- */
+
+.calendar-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.calendar-item {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    margin-bottom: 30px;
+    color: #333;
+    /* Dark text for readability on white bg */
+}
+
+/* FullCalendar Header */
+.fc-toolbar-title {
+    text-transform: capitalize;
+    font-family: var(--font-heading);
+    color: #222;
+    font-size: 1.4rem !important;
+}
+
+.calendar-item .fc-header-toolbar {
+    margin-bottom: 1.5em;
+}
+
+/* Hide event time for cleaner look */
+.fc-event-time {
+    display: none !important;
+}
+
+/* Day cell heights */
+.calendar-item .fc-daygrid-day {
+    height: 60px !important;
+}
+
+/* Event Styling */
+.calendar-item .fc-event {
+    font-size: 11px !important;
+    padding: 2px 4px !important;
+    line-height: 1.2 !important;
+    border: none !important;
+    border-radius: 4px !important;
+    cursor: help;
+    transition: transform 0.2s ease;
+}
+
+.calendar-item .fc-event:hover {
+    transform: scale(1.02);
+    z-index: 100 !important;
+}
+
+.fc-event-title {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    font-weight: 600;
+}
+
+/* Tooltip on Hover */
+.fc-event:hover .fc-event-title {
+    overflow: visible !important;
+    position: absolute;
+    background: #1a1a1a;
+    color: white !important;
+    padding: 8px 12px;
+    border-radius: 6px;
+    white-space: normal !important;
+    z-index: 9999 !important;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -45px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    min-width: 150px;
+    max-width: 250px;
+    font-size: 0.9rem !important;
+    text-align: center;
+}
+
+/* Tooltip Arrow */
+.fc-event:hover .fc-event-title::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #1a1a1a;
+}
+
+/* Navigation Buttons Hidden (Auto-controlled) */
+.calendar-item .fc-prev-button,
+.calendar-item .fc-next-button,
+.calendar-item .fc-today-button {
+    display: none;
+}
+
+/* Hide dots */
+.fc-event-dot,
+.fc-list-event-dot,
+.fc-daygrid-event-dot {
+    display: none !important;
+}
+
+.fc-daygrid-dot-event {
+    padding-left: 2px !important;
+}
+
+/* Loading State */
+.calendar-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    color: var(--accent-color);
+}
+
+.calendar-loading i {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .calendar-item {
+        padding: 10px;
+    }
+
+    .calendar-item .fc-daygrid-day {
+        height: 45px !important;
+    }
+
+    .fc-toolbar-title {
+        font-size: 1.1rem !important;
+    }
+}
