@@ -142,11 +142,44 @@ document.addEventListener('DOMContentLoaded', () => {
         video.onerror = (e) => console.error('Video Hero: Error al cargar', e);
     }
 
+    // Smooth scroll compatible with iOS Safari
+    function smoothScrollTo(element) {
+        const header = document.querySelector('.main-header');
+        const offset = header ? header.offsetHeight : 0;
+        const targetY = element.getBoundingClientRect().top + window.pageYOffset - offset;
+        const startY = window.pageYOffset;
+        const distance = targetY - startY;
+        const duration = 700;
+        let startTime = null;
+
+        function ease(t) {
+            return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+        }
+
+        function step(now) {
+            if (!startTime) startTime = now;
+            const progress = Math.min((now - startTime) / duration, 1);
+            window.scrollTo(0, startY + distance * ease(progress));
+            if (progress < 1) requestAnimationFrame(step);
+        }
+
+        requestAnimationFrame(step);
+    }
+
     // Hero panel click → smooth scroll to show card
     document.querySelectorAll('.hero-panel[data-target]').forEach(panel => {
         panel.addEventListener('click', () => {
             const target = document.getElementById(panel.dataset.target);
-            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (target) smoothScrollTo(target);
+        });
+    });
+
+    // Chevron scroll hint → smooth scroll
+    document.querySelectorAll('.hero-scroll-hint[href^="#"]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.getElementById(link.getAttribute('href').slice(1));
+            if (target) smoothScrollTo(target);
         });
     });
 });
