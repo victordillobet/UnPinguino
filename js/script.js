@@ -141,4 +141,12 @@ document.addEventListener('DOMContentLoaded', () => {
         video.onplay = () => console.log('Video Hero: Reproduciendo');
         video.onerror = (e) => console.error('Video Hero: Error al cargar', e);
     }
+
+    // Hero panel click → smooth scroll to show card
+    document.querySelectorAll('.hero-panel[data-target]').forEach(panel => {
+        panel.addEventListener('click', () => {
+            const target = document.getElementById(panel.dataset.target);
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
 });

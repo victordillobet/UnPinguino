@@ -1,12 +1,5 @@
 /* --- Calendar Styles --- */
 
-.calendar-container {
-    position: relative;
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
 .calendar-item {
     background: #fff;
     padding: 20px;
@@ -77,7 +70,7 @@
     top: -45px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     min-width: 150px;
-    max-width: 250px;
+    max-width: min(250px, 80vw);
     font-size: 0.9rem !important;
     text-align: center;
 }
@@ -111,21 +104,6 @@
     padding-left: 2px !important;
 }
 
-/* Loading State */
-.calendar-loading {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-    color: var(--accent-color);
-}
-
-.calendar-loading i {
-    font-size: 2rem;
-    margin-bottom: 15px;
-}
-
 /* Responsive adjustments */
 @media (max-width: 576px) {
     .calendar-item {
@@ -138,5 +116,59 @@
 
     .fc-toolbar-title {
         font-size: 1.1rem !important;
+    }
+}
+
+/* --- Calendar Page Layout --- */
+
+.calendar-page-layout {
+    background-color: var(--bg-color);
+}
+
+.calendar-page-content {
+    padding-top: 100px;
+}
+
+.calendar-hero {
+    padding: 80px 0 20px;
+    text-align: center;
+}
+
+.calendars-grid-section {
+    padding: 20px 0 80px;
+}
+
+.calendar-wrapper {
+    /* grid cell wrapper */
+}
+
+.calendar-info-box {
+    padding: 40px;
+    text-align: center;
+}
+
+.calendar-info-box h3 {
+    font-family: var(--font-heading);
+    color: var(--text-color);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.calendar-info-box p {
+    color: var(--text-muted);
+    margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+    .calendar-page-content {
+        padding-top: 70px;
+    }
+
+    .calendar-hero {
+        padding: 60px 0 10px;
+    }
+
+    .calendar-info-box {
+        padding: 25px 20px;
     }
 }

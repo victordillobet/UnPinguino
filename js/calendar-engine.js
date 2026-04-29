@@ -7,7 +7,6 @@
 const ICS_URL = 'cache_calendar.php';
 
 window.calendarEvents = null;
-window.calendarsToLoad = [];
 window._calendarLoadPromise = null;
 
 /**
@@ -123,19 +122,18 @@ window.createSingleCalendar = function (elementId, date) {
  * Registers a calendar to be loaded once the data is ready.
  */
 window.registerCalendar = function (elementId, date) {
-    window.calendarsToLoad.push({ id: elementId, date: date });
-
     loadIcsFromServer()
         .then(() => {
-            // Processing all pending calendars
-            while (window.calendarsToLoad.length > 0) {
-                const c = window.calendarsToLoad.shift();
-                setTimeout(() => {
-                    window.createSingleCalendar(c.id, c.date);
-                    const container = document.getElementById(c.id)?.parentElement;
-                    const loading = container?.querySelector('.calendar-loading');
-                    if (loading) loading.style.display = 'none';
-                }, 50);
-            }
+            setTimeout(() => {
+                window.createSingleCalendar(elementId, date);
+                const container = document.getElementById(elementId)?.parentElement;
+                const loading = container?.querySelector('.calendar-loading');
+                if (loading) loading.style.display = 'none';
+            }, 50);
+        })
+        .catch(err => {
+            console.warn('No se pudo renderizar el calendario:', elementId, err.message);
         });
 };
+
+window.preloadCalendarData = loadIcsFromServer;

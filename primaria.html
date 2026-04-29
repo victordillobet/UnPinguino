@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teatro para Primaria - UnPinguino Producciones</title>
+    <meta name="description" content="Espectáculos de teatro clásico para Primaria de Un Pingüino Producciones.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/primaria.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body class="primaria-layout">
+    <div class="bg-decorations">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <header class="main-header scrolled">
+        <div class="header-container">
+            <a href="index.html" class="header-logo">
+                <img src="assets/images/LogoBlanco.png" alt="UnPinguino Logo">
+            </a>
+
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="primaria.html" class="nav-link active">PRIMARIA</a></li>
+                    <li><a href="secundaria.html" class="nav-link">SECUNDARIA Y BACHILLERATO</a></li>
+                    <li><a href="#" class="nav-link">COMEDIA FAMILIAR</a></li>
+                    <li><a href="calendario.html" class="nav-link">CALENDARIO</a></li>
+                    <li><a href="quienes-somos.html" class="nav-link">EQUIPO</a></li>
+                    <li><a href="contacto.html" class="nav-link">CONTACTO</a></li>
+                </ul>
+
+                <div class="mobile-nav-footer">
+                    <div class="mobile-contact">
+                        <p>Contacto:</p>
+                        <div class="mobile-phones">
+                            <a href="tel:+34654695086">654 69 50 86</a> /
+                            <a href="tel:+34660286190">660 28 61 90</a>
+                        </div>
+                        <a href="mailto:hola@unpinguinoproducciones.es"
+                            class="mobile-email">hola@unpinguinoproducciones.es</a>
+                    </div>
+                    <div class="mobile-socials">
+                        <a href="https://www.instagram.com/unpinguinoproducciones/" target="_blank"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/unpingu/" target="_blank"><i
+                                class="fa-brands fa-facebook"></i></a>
+                        <a href="https://www.youtube.com/@unpinguinoproducciones8378" target="_blank"><i
+                                class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+            </nav>
+
+            <button class="burger-menu" aria-label="Abrir menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main class="primaria-page">
+        <section class="primaria-hero">
+            <div class="hero-panel" data-target="show-cid">
+                <img src="assets/images/carteles/CartelCid.webp" alt="El Cid Campeador">
+                <div class="panel-overlay"></div>
+                <div class="panel-label">
+                    <span class="panel-tag">Teatro Clásico</span>
+                    <p class="panel-title">El Cid Campeador</p>
+                </div>
+            </div>
+
+            <div class="hero-divider"></div>
+
+            <div class="hero-panel" data-target="show-lazarillo">
+                <img src="assets/images/carteles/CartelLazarillo.webp" alt="El Lazarillo de Tormes">
+                <div class="panel-overlay"></div>
+                <div class="panel-label">
+                    <span class="panel-tag">Teatro Clásico</span>
+                    <p class="panel-title">El Lazarillo de Tormes</p>
+                </div>
+            </div>
+
+            <div class="hero-center-content">
+                <span class="hero-eyebrow">Espectáculos · Primaria</span>
+                <h1 class="hero-main-title">Teatro para<br>Primaria</h1>
+            </div>
+
+            <a class="hero-scroll-hint" href="#shows">
+                <i class="fa-solid fa-chevron-down"></i>
+            </a>
+        </section>
+
+        <section class="shows-section" id="shows">
+            <div class="container">
+
+                <article class="show-card" id="show-cid">
+                    <div class="show-poster">
+                        <img src="assets/images/carteles/CartelCid.webp" alt="El Cid Campeador">
+                    </div>
+                    <div class="show-info">
+                        <span class="show-tag">Teatro Clásico · Primaria</span>
+                        <h2 class="show-title">El Cid Campeador</h2>
+                        <p class="show-description">Una adaptación llena de humor y emoción del gran héroe castellano.
+                            Rodrigo Díaz de Vivar cobra vida en escena en esta función pensada para los más jóvenes, que
+                            descubrirán la historia de España sin perder la sonrisa.</p>
+                        <a href="#" class="btn btn-primary">VER DETALLES</a>
+                    </div>
+                </article>
+
+                <article class="show-card reverse" id="show-lazarillo">
+                    <div class="show-poster">
+                        <img src="assets/images/carteles/CartelLazarillo.webp" alt="El Lazarillo de Tormes">
+                    </div>
+                    <div class="show-info">
+                        <span class="show-tag">Teatro Clásico · Primaria</span>
+                        <h2 class="show-title">El Lazarillo de Tormes</h2>
+                        <p class="show-description">Las aventuras del pícaro más famoso de la literatura española
+                            adaptadas para el aula. Una función que mezcla comedia y reflexión, perfecta para acercar
+                            los clásicos a los alumnos de una manera divertida e inolvidable.</p>
+                        <a href="#" class="btn btn-primary">VER DETALLES</a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-column footer-brand">
+                <div class="footer-logo">
+                    <img src="assets/images/LogoBlanco.png" alt="UnPinguino Producciones Logo">
+                </div>
+                <div class="footer-socials">
+                    <a href="https://www.instagram.com/unpinguinoproducciones/" target="_blank"
+                        rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/unpingu/?locale=es_ES" target="_blank" rel="noopener noreferrer"
+                        aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.youtube.com/@unpinguinoproducciones8378" target="_blank"
+                        rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Contacto</h3>
+                <p>Llamadas o WhatsApp:</p>
+                <div class="footer-phones">
+                    <a href="tel:+34654695086" class="footer-link-accent">654 69 50 86</a> /
+                    <a href="tel:+34660286190" class="footer-link-accent">660 28 61 90</a>
+                </div>
+                <p class="mt-20">Email:</p>
+                <a href="mailto:hola@unpinguinoproducciones.es"
+                    class="footer-link-accent">hola@unpinguinoproducciones.es</a>
+            </div>
+
+            <div class="footer-column">
+                <h3>Información</h3>
+                <ul>
+                    <li><a href="#">Política de Privacidad</a></li>
+                    <li><a href="#">Política de Cookies</a></li>
+                    <li><a href="#">Aviso Legal</a></li>
+                    <li><a href="#">Preguntas Frecuentes</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 UnPinguinoProducciones. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

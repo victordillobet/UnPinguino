@@ -20,7 +20,7 @@
         .year-title {
             text-align: center;
             font-family: var(--font-heading);
-            font-size: 3rem;
+            font-size: clamp(1.8rem, 5vw, 3rem);
             color: var(--accent-color);
             margin: 40px 0;
             text-shadow: 0 0 20px rgba(253, 136, 49, 0.3);
@@ -28,8 +28,7 @@
 
         .calendars-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            /* 2 per row as requested */
+            grid-template-columns: 1fr;
             gap: 40px;
             padding-bottom: 40px;
         }
@@ -44,12 +43,6 @@
             width: 100%;
             margin-top: 30px;
         }
-
-        @media (max-width: 900px) {
-            .calendars-grid {
-                grid-template-columns: 1fr;
-            }
-        }
     </style>
 </head>
 
@@ -62,13 +55,11 @@
 
             <nav class="nav-menu">
                 <ul class="nav-list">
-                    <li><a href="index.html" class="nav-link">INICIO</a></li>
-                    <li><a href="#" class="nav-link">PRIMARIA</a></li>
-                    <li><a href="#" class="nav-link">SECUNDARIA Y BACHILLERATO</a></li>
-                    <li><a href="#" class="nav-link">COMEDIA</a></li>
-                    <li><a href="#" class="nav-link">FAMILIAR</a></li>
+                    <li><a href="primaria.html" class="nav-link">PRIMARIA</a></li>
+                    <li><a href="secundaria.html" class="nav-link">SECUNDARIA Y BACHILLERATO</a></li>
+                    <li><a href="#" class="nav-link">COMEDIA FAMILIAR</a></li>
                     <li><a href="calendario.html" class="nav-link active">CALENDARIO</a></li>
-                    <li><a href="quienes-somos.html" class="nav-link">QUIENES SOMOS</a></li>
+                    <li><a href="quienes-somos.html" class="nav-link">EQUIPO</a></li>
                     <li><a href="contacto.html" class="nav-link">CONTACTO</a></li>
                 </ul>
 
@@ -81,6 +72,14 @@
                         </div>
                         <a href="mailto:hola@unpinguinoproducciones.es"
                             class="mobile-email">hola@unpinguinoproducciones.es</a>
+                    </div>
+                    <div class="mobile-socials">
+                        <a href="https://www.instagram.com/unpinguinoproducciones/" target="_blank"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/unpingu/" target="_blank"><i
+                                class="fa-brands fa-facebook"></i></a>
+                        <a href="https://www.youtube.com/@unpinguinoproducciones8378" target="_blank"><i
+                                class="fa-brands fa-youtube"></i></a>
                     </div>
                 </div>
             </nav>
@@ -199,8 +198,22 @@
                 { id: 'diciembre', date: '2026-12-01' }
             ];
 
+            // Pre-carga el ICS al entrar en la página para que esté listo al hacer scroll
+            if (window.preloadCalendarData) window.preloadCalendarData().catch(() => {});
+
+            // Renderiza cada mes solo cuando entra en el viewport (lazy)
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    const month = months.find(m => 'cal-' + m.id === entry.target.id);
+                    if (month) window.registerCalendar(entry.target.id, month.date);
+                    observer.unobserve(entry.target);
+                });
+            }, { rootMargin: '200px 0px' });
+
             months.forEach(m => {
-                window.registerCalendar('cal-' + m.id, m.date);
+                const el = document.getElementById('cal-' + m.id);
+                if (el) observer.observe(el);
             });
         });
     </script>
