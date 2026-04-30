@@ -366,11 +366,7 @@
     }
 
     .contact-form-container {
-        padding: 40px 30px;
-    }
-
-    .contact-section {
-        overflow-x: hidden;
+        padding: 40px 20px;
     }
 }
 
