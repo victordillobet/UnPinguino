@@ -1,10 +1,9 @@
-/* Contact page — rebuilt from zero */
+/* Contact page — mobile-first */
 
 .cp-page {
     padding-top: 100px;
 }
 
-/* Wrapper — own class, not shared .container */
 .cp-wrap {
     width: 100%;
     max-width: 1200px;
@@ -38,23 +37,42 @@
     padding-bottom: 80px;
 }
 
-/* Two-column flex layout */
+/* ── Grid: block por defecto (móvil), grid en escritorio ── */
 .cp-grid {
-    display: flex;
-    flex-direction: row;
-    gap: 40px;
-    align-items: flex-start;
+    display: block;
 }
 
-/* Form card */
+.cp-sidebar {
+    margin-top: 24px;
+}
+
+@media (min-width: 900px) {
+    .cp-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 40px;
+        align-items: start;
+    }
+
+    .cp-sidebar {
+        margin-top: 0;
+    }
+}
+
+/* ── Tarjeta del formulario ── */
 .cp-form-card {
-    flex: 6;
-    min-width: 0;
+    box-sizing: border-box;
+    width: 100%;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
-    padding: 40px;
-    box-sizing: border-box;
+    padding: 28px 20px;
+}
+
+@media (min-width: 900px) {
+    .cp-form-card {
+        padding: 40px;
+    }
 }
 
 .cp-form-heading {
@@ -65,19 +83,24 @@
     margin: 0 0 28px;
 }
 
-/* Two-field row */
+/* ── Fila de dos campos: block en móvil, flex en escritorio ── */
 .cp-row {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
+    display: block;
 }
 
-.cp-row .cp-field {
-    flex: 1;
-    min-width: 0;
+@media (min-width: 900px) {
+    .cp-row {
+        display: flex;
+        gap: 20px;
+    }
+
+    .cp-row .cp-field {
+        flex: 1;
+        min-width: 0;
+    }
 }
 
-/* Individual field */
+/* ── Campo individual ── */
 .cp-field {
     margin-bottom: 20px;
 }
@@ -95,8 +118,9 @@
 .cp-field input,
 .cp-field textarea {
     display: block;
-    width: 100%;
     box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
     padding: 14px 16px;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -114,22 +138,21 @@
     background: rgba(255, 255, 255, 0.08);
 }
 
-/* Sidebar */
+/* ── Sidebar ── */
 .cp-sidebar {
-    flex: 4;
-    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 24px;
-    box-sizing: border-box;
 }
 
 .cp-info-card {
+    box-sizing: border-box;
+    width: 100%;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
-    padding: 28px;
-    box-sizing: border-box;
+    padding: 28px 20px;
+    overflow: hidden;
 }
 
 .cp-card-title {
@@ -154,6 +177,7 @@
     flex-direction: row;
     gap: 14px;
     align-items: center;
+    min-width: 0;
 }
 
 .cp-contact-row i {
@@ -168,6 +192,9 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-all;
 }
 
 .cp-contact-row a,
@@ -175,6 +202,8 @@
     color: var(--text-color);
     text-decoration: none;
     font-size: 0.9rem;
+    overflow-wrap: break-word;
+    word-break: break-all;
     transition: color 0.3s ease;
 }
 
@@ -183,9 +212,10 @@
     color: var(--accent-color);
 }
 
-/* Posters */
+/* ── Carteles ── */
 .cp-posters {
     box-sizing: border-box;
+    width: 100%;
 }
 
 .cp-posters-grid {
@@ -208,24 +238,7 @@
     object-fit: cover;
 }
 
-/* === Responsive === */
-
-@media (max-width: 900px) {
-    .cp-grid {
-        flex-direction: column;
-    }
-
-    .cp-form-card {
-        flex: none;
-        width: 100%;
-    }
-
-    .cp-sidebar {
-        flex: none;
-        width: 100%;
-    }
-}
-
+/* Hero responsive */
 @media (max-width: 768px) {
     .cp-page {
         padding-top: 70px;
@@ -233,14 +246,5 @@
 
     .cp-hero {
         padding: 80px 0 40px;
-    }
-
-    .cp-form-card {
-        padding: 28px 20px;
-    }
-
-    .cp-row {
-        flex-direction: column;
-        gap: 0;
     }
 }
