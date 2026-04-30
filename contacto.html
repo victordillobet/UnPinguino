@@ -6,26 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto - UnPinguino</title>
     <meta name="description" content="Ponte en contacto con UnPinguino Producciones.">
-    <!-- Google Fonts: Cinzel and Montserrat -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css"> <!-- Base styles -->
-    <link rel="stylesheet" href="css/contacto.css"> <!-- Specific contact styles -->
-    <!-- Font Awesome for icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/contacto.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
-    <!-- Modern Background Decorations -->
-    <div class="bg-decorations">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-    </div>
-
     <header class="main-header scrolled">
         <div class="header-container">
             <a href="index.html" class="header-logo">
@@ -49,16 +38,12 @@
                             <a href="tel:+34654695086">654 69 50 86</a> /
                             <a href="tel:+34660286190">660 28 61 90</a>
                         </div>
-                        <a href="mailto:hola@unpinguinoproducciones.es"
-                            class="mobile-email">hola@unpinguinoproducciones.es</a>
+                        <a href="mailto:hola@unpinguinoproducciones.es" class="mobile-email">hola@unpinguinoproducciones.es</a>
                     </div>
                     <div class="mobile-socials">
-                        <a href="https://www.instagram.com/unpinguinoproducciones/" target="_blank"><i
-                                class="fa-brands fa-instagram"></i></a>
-                        <a href="https://www.facebook.com/unpingu/" target="_blank"><i
-                                class="fa-brands fa-facebook"></i></a>
-                        <a href="https://www.youtube.com/@unpinguinoproducciones8378" target="_blank"><i
-                                class="fa-brands fa-youtube"></i></a>
+                        <a href="https://www.instagram.com/unpinguinoproducciones/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/unpingu/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="https://www.youtube.com/@unpinguinoproducciones8378" target="_blank"><i class="fa-brands fa-youtube"></i></a>
                     </div>
                 </div>
             </nav>
@@ -71,94 +56,81 @@
         </div>
     </header>
 
-    <main class="contact-page">
-        <section class="contact-hero">
-            <div class="container reveal-on-scroll active">
-                <h1 class="section-title">
-                    Si no reservas, <br>
-                    <span class="stagger active" style="--i:1">te quedas</span>
-                    <span class="stagger active" style="--i:2">sin</span>
-                    <span class="stagger active" style="--i:3">verlas!</span>
+    <main class="cp-page">
+
+        <section class="cp-hero">
+            <div class="cp-wrap">
+                <h1 class="cp-title">
+                    Si no reservas,<br>
+                    <span>te quedas sin verlas!</span>
                 </h1>
             </div>
         </section>
 
-        <section class="contact-section">
-            <div class="container reveal-on-scroll active">
-                <div class="contact-grid refined-grid">
-                    <!-- Formulario (Lado Izquierdo) -->
-                    <div class="contact-form-container glass-morphism">
-                        <h2 class="form-title">Escríbenos</h2>
-                        <form action="#" class="contact-form">
-                            <div class="form-row">
-                                <div class="form-group">
+        <section class="cp-body">
+            <div class="cp-wrap">
+                <div class="cp-grid">
+
+                    <div class="cp-form-card">
+                        <h2 class="cp-form-heading">Escríbenos</h2>
+                        <form action="#" class="cp-form">
+                            <div class="cp-row">
+                                <div class="cp-field">
                                     <label for="nombre">Nombre</label>
                                     <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
                                 </div>
-                                <div class="form-group">
+                                <div class="cp-field">
                                     <label for="email">Email</label>
                                     <input type="email" id="email" name="email" placeholder="tu@email.com" required>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="cp-field">
                                 <label for="telefono">Teléfono (Opcional)</label>
                                 <input type="tel" id="telefono" name="telefono" placeholder="600 000 000">
                             </div>
-                            <div class="form-group">
+                            <div class="cp-field">
                                 <label for="mensaje">Mensaje</label>
-                                <textarea id="mensaje" name="mensaje" rows="5" placeholder="¿En qué podemos ayudarte?"
-                                    required></textarea>
+                                <textarea id="mensaje" name="mensaje" rows="5" placeholder="¿En qué podemos ayudarte?" required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary shimmer-btn">ENVIAR MENSAJE</button>
+                            <button type="submit" class="btn btn-primary">ENVIAR MENSAJE</button>
                         </form>
                     </div>
 
-                    <!-- Lado Derecho: Info + Carteles -->
-                    <div class="contact-sidebar">
-                        <div class="sidebar-info-card glass-morphism">
-                            <h3 class="sidebar-subtitle">Datos de Contacto</h3>
-                            <div class="info-list">
-                                <div class="info-item-small">
+                    <div class="cp-sidebar">
+                        <div class="cp-info-card">
+                            <h3 class="cp-card-title">Datos de Contacto</h3>
+                            <div class="cp-contact-list">
+                                <div class="cp-contact-row">
                                     <i class="fa-solid fa-phone"></i>
-                                    <div class="links">
+                                    <div class="cp-contact-links">
                                         <a href="tel:+34654695086">654 69 50 86</a>
                                         <a href="tel:+34660286190">660 28 61 90</a>
                                     </div>
                                 </div>
-                                <div class="info-item-small">
+                                <div class="cp-contact-row">
                                     <i class="fa-solid fa-envelope"></i>
                                     <a href="mailto:hola@unpinguinoproducciones.es">hola@unpinguinoproducciones.es</a>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="sidebar-posters">
-                            <h3 class="sidebar-subtitle">En Cartel</h3>
-                            <div class="mini-posters-grid">
-                                <div class="mini-poster">
-                                    <img src="assets/images/carteles/CartelCid.webp" alt="Cartel El Cid">
-                                </div>
-                                <div class="mini-poster">
-                                    <img src="assets/images/carteles/CartelLazarillo.webp" alt="Cartel Lazarillo">
-                                </div>
-                                <div class="mini-poster">
-                                    <img src="assets/images/carteles/CartelLisistrata.webp" alt="Cartel Lisístrata">
-                                </div>
-                                <div class="mini-poster">
-                                    <img src="assets/images/carteles/CartelLorca.webp" alt="Cartel Lorca">
-                                </div>
-                                <div class="mini-poster">
-                                    <img src="assets/images/carteles/CartelMeli.webp" alt="Cartel Meli-Melo">
-                                </div>
-                                <div class="mini-poster">
-                                    <img src="assets/images/carteles/CartelQuijote.webp" alt="Cartel Quijote">
-                                </div>
+                        <div class="cp-posters">
+                            <h3 class="cp-card-title">En Cartel</h3>
+                            <div class="cp-posters-grid">
+                                <div class="cp-poster"><img src="assets/images/carteles/CartelCid.webp" alt="Cartel El Cid"></div>
+                                <div class="cp-poster"><img src="assets/images/carteles/CartelLazarillo.webp" alt="Cartel Lazarillo"></div>
+                                <div class="cp-poster"><img src="assets/images/carteles/CartelLisistrata.webp" alt="Cartel Lisístrata"></div>
+                                <div class="cp-poster"><img src="assets/images/carteles/CartelLorca.webp" alt="Cartel Lorca"></div>
+                                <div class="cp-poster"><img src="assets/images/carteles/CartelMeli.webp" alt="Cartel Meli-Melo"></div>
+                                <div class="cp-poster"><img src="assets/images/carteles/CartelQuijote.webp" alt="Cartel Quijote"></div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
+
     </main>
 
     <footer class="main-footer">
@@ -168,12 +140,9 @@
                     <img src="assets/images/LogoBlanco.png" alt="UnPinguino Producciones Logo">
                 </div>
                 <div class="footer-socials">
-                    <a href="https://www.instagram.com/unpinguinoproducciones/" target="_blank"
-                        rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://www.facebook.com/unpingu/?locale=es_ES" target="_blank" rel="noopener noreferrer"
-                        aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="https://www.youtube.com/@unpinguinoproducciones8378" target="_blank"
-                        rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://www.instagram.com/unpinguinoproducciones/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/unpingu/?locale=es_ES" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.youtube.com/@unpinguinoproducciones8378" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
                 </div>
             </div>
 
@@ -185,8 +154,7 @@
                     <a href="tel:+34660286190" class="footer-link-accent">660 28 61 90</a>
                 </div>
                 <p class="mt-20">Email:</p>
-                <a href="mailto:hola@unpinguinoproducciones.es"
-                    class="footer-link-accent">hola@unpinguinoproducciones.es</a>
+                <a href="mailto:hola@unpinguinoproducciones.es" class="footer-link-accent">hola@unpinguinoproducciones.es</a>
             </div>
 
             <div class="footer-column">
