@@ -368,6 +368,10 @@
     .contact-form-container {
         padding: 40px 30px;
     }
+
+    .contact-section {
+        overflow-x: hidden;
+    }
 }
 
 @media (max-width: 768px) {
