@@ -24,6 +24,13 @@ html {
     scroll-behavior: smooth;
 }
 
+@media (max-width: 768px) {
+    html {
+        overflow-y: auto;
+        scrollbar-gutter: auto;
+    }
+}
+
 html,
 body {
     margin: 0;
