@@ -13,6 +13,8 @@
     font-weight: 700;
     letter-spacing: 2px;
     margin-bottom: 15px;
+    color: var(--text-color);
+    text-shadow: none;
 }
 
 .legal-hero .page-subtitle {
@@ -74,6 +76,18 @@
     line-height: 1.75;
     color: rgba(255, 255, 255, 0.75);
     margin-bottom: 6px;
+}
+
+.legal-section a,
+.legal-intro a {
+    color: var(--accent-color);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.legal-section a:hover,
+.legal-intro a:hover {
+    color: var(--text-color);
 }
 
 .legal-section h3 {
